@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+        <!-- Product section-->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="row gx-4 gx-lg-5 align-items-center">
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{ my_book.image.url }}" alt="{{ my_book.title }}" /></div>
+                    <div class="col-md-6">
+                        <div class="small mb-1">{{ my_book.author }}</div>
+                        <h1 class="display-5 fw-bolder">{{ my_book.title }}</h1>
+                        <div class="">
+                            <span class="">{{ my_book.create_date }}</span>
+                        </div>
+                        <div class="fs-5 mb-5">
+                            {% for category in my_cateogry %}
+                                <span class="fw-bold">{{ category }}/</span>
+                            {% endfor %}
+                        </div>
+                        <p class="lead">{{ my_book.description }}</p>
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ my_book.book_link }}" target="_blank">Free Download Now</a></div>
+                        </div>
+                    </div>
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-left"><a class="btn btn-outline-primary mt-auto" href="{% url 'onlinebooks:home' %}">Back</a></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Related items section-->
+        <section class="py-5 bg-light">
+            <div class="container px-4 px-lg-5 mt-5">
+                <h2 class="fw-bolder mb-4">Related products</h2>
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    {% for view in all_book %}
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <img class="card-img-top" src="{{ view.image.url }}" alt="{{ view.title }}" />
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h5 class="fw-bolder">{{ view.title }}</h5>
+                                    {{ view.author }}
+                                </div>
+                            </div>
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'onlinebooks:book-detail' view.id view.slug_url %}">Free Download</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+{% endblock %}
