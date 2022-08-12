@@ -2,110 +2,99 @@
 {% block content %}
 
 <div class="page-wrapper bg-dark p-t-100 p-b-50">
-        <div class="wrapper wrapper--w900">
-            <div class="card card-6">
-                <div class="card-heading">
-                    <h2 class="title text-primary text-center">Apply for job</h2>
-                </div>
-                <div class="card-body">
-                    <form method="POST">
-                        <div class="form-row">
-                            <div class="name">Title:</div>
-                            <div class="value">
-                                <input class="input--style-6" type="text" name="title">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="name">Author:</div>
-                            <div class="value">
-                                <input class="input--style-6" type="text" name="author">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="name">Description:</div>
-                            <div class="value">
-                                <div class="input-group">
-                                    <textarea class="textarea--style-6" name="description" placeholder="Message about the book."></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                          <div class="name">Cateogry:</div>
-                          <div class="value">
-                            <select class="form-select" multiple aria-label="multiple select example" required>
-                              <option selected>Open this select menu</option>
-                              <option value="1">One</option>
-                              <option value="2">Two</option>
-                              <option value="3">Three</option>
-                          </select>
-                          </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="name">Upload Image</div>
-                            <div class="value">
-                                <div class="input-group js-input-file">
-                                    <input class="form-control" name="image" type="file" id="formFile" accept="image/*" required>
-                                </div>
-                                <div class="label--desc">Upload your image file. Max file size 10 MB</div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="name">Book Link:</div>
-                            <div class="value">
-                                <input class="input--style-6" type="text" name="author">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="card-footer text-center">
-                    <button class="btn btn--radius-2 btn-primary" type="submit">Send Application</button>
-                </div>
+    <div class="wrapper wrapper--w900">
+        <div class="card card-6">
+            <div class="card-heading">
+                <h2 class="title text-primary text-center">Apply for job</h2>
             </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        {% for book in form %}
+                        <div class="name">{{ book.name }}</div>
+                        <div class="value">
+                            <input class="input--style-6" type="text" name="title">
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn--radius-2 text-center btn-primary" type="submit">Send Application</button>
+                    </div>
+                </form>
+            </div>
+
         </div>
     </div>
+</div>
 
 
 {% endblock %}
 
 <!-- 
 
-<form class="row g-3 me-md-5 ms-md-5 mt-5">
-  <div class="modal-header p-5 pb-4 border-bottom-0">
-        <h2 class="fw-bold mb-0">Upload File</h2>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-  </div>
-    {% csrf_token %}
-      <div class="form-floating mb-3">
-        <input type="text" name="title" class="form-control rounded-3" id="floatingInput" placeholder="Title" required>
-        <label for="floatingInput">Title</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input type="text" name="author" class="form-control rounded-3" id="floatingInput" placeholder="Author">
-        <label for="floatingInput">Author</label>
-      </div>
-      <div class="mb-3">
-          <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-          <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
-      </div>
-      <select class="form-select" multiple aria-label="multiple select example" required>
-          <option selected>Open this select menu</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-      </select>
-      <div class="form-floating">
-        <input type="text" name="book_link" class="form-control rounded-3" id="floatingInput" placeholder="book link">
-        <label for="floatingInput">Book Link</label>
-      </div>
-      <div class="mb-3">
-          <label for="formFile" class="form-label">or upload file</label>
-          <input class="form-control" name="file" type="file" id="formFile">
-      </div>
-      <div class="mb-3">
-          <label for="formFile" class="form-label">select image</label>
-          <input class="form-control" name="image" type="file" id="formFile" accept="image/*" required>
-      </div>
-      <button class="w-100 mb-2 mt-3 btn btn-lg rounded-3 btn-primary" type="submit">Finish</button>
-      <hr class="my-4">
-</form>
+<div class="page-wrapper bg-dark p-t-100 p-b-50">
+    <div class="wrapper wrapper--w900">
+        <div class="card card-6">
+            <div class="card-heading">
+                <h2 class="title text-primary text-center">Apply for job</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="name">Title:</div>
+                        <div class="value">
+                            <input class="input--style-6" type="text" name="title">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Author:</div>
+                        <div class="value">
+                            <input class="input--style-6" type="text" name="author">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Description:</div>
+                        <div class="value">
+                            <div class="input-group">
+                                <textarea class="textarea--style-6" name="description" placeholder="Message about the book."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="name">Cateogry:</div>
+                      <div class="value">
+                        <select class="form-select" name="multselect" multiple aria-label="multiple select example" required>
+                          <option selected>Open this select menu</option>
+                          <option value="1">One</option>
+                          <option value="2">Two</option>
+                          <option value="3">Three</option>
+                      </select>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Upload Image</div>
+                        <div class="value">
+                            <div class="input-group js-input-file">
+                                <input class="form-control" name="image" type="file" id="formFile" accept="image/*" required>
+                            </div>
+                            <div class="label--desc">Upload your image file. Max file size 10 MB</div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Book Link:</div>
+                        <div class="value">
+                            <input class="input--style-6" type="text" name="book_link">
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn--radius-2 text-center btn-primary" type="submit">Send Application</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
  -->

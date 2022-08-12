@@ -4,6 +4,7 @@ from .models import Book, Category
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
+from .forms import BookForm
 
 
 def home(request):
@@ -69,6 +70,28 @@ def UserLogout(request):
 	return redirect("onlinebooks:home")
 
 
-def upload_form(request):
 
-	return render(request, 'onlinebooks/upload-form.html')
+def content_form(request):
+#def content_form(request, pk):
+
+	#user = User.objects.get(id=pk)
+	#print(user)
+	if request.method == 'POST':
+		#form = BookForm(request.POST, instance=user)
+		form = BookForm(request.POST)
+		if form.is_valid():
+			user_form = form.save(commit=False)
+			title = form.cleaned_data.get('title')
+			author = form.cleaned_data.get('author')
+			cateogry = form.cleaned_data.get('cateogry')
+			book_link = form.cleaned_data.get('book_link')
+			image = form.cleaned_data.get('image')
+
+			form.save()
+			return redirect("onlinebooks:home")
+	else:
+		form = BookForm()
+
+	context = {"form": form}
+
+	return render(request, 'onlinebooks/upload-form.html', context)
