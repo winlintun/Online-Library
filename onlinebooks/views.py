@@ -70,14 +70,31 @@ def UserLogout(request):
 	return redirect("onlinebooks:home")
 
 
-
-def content_form(request):
-#def content_form(request, pk):
-
-	#user = User.objects.get(id=pk)
-	#print(user)
+def content_form(request, pk):
+	user = User.objects.get(id=pk)
+	categories = Category.objects.all()
 	if request.method == 'POST':
-		#form = BookForm(request.POST, instance=user)
+		title = request.POST['title']
+		author = request.POST['author']
+		description = request.POST['description']
+		cateogry = request.POST['cateogry']
+		book_link = request.POST['book_link']
+		image = request.POST['image']  # 1 item
+
+		my_category = set()
+		for i in cateogry:
+			my_category.add(i)
+		print(my_category)
+		mybook = Book(title=title, author=author, description=description, book_link=book_link, image=image)
+		mybook.save()
+		return redirect("onlinebooks:home")
+
+	context = {'categories': categories}
+
+	return render(request, 'onlinebooks/upload-form.html', context)
+
+""" 
+	if request.method == 'POST':
 		form = BookForm(request.POST)
 		if form.is_valid():
 			user_form = form.save(commit=False)
@@ -86,12 +103,12 @@ def content_form(request):
 			cateogry = form.cleaned_data.get('cateogry')
 			book_link = form.cleaned_data.get('book_link')
 			image = form.cleaned_data.get('image')
-
 			form.save()
+
 			return redirect("onlinebooks:home")
 	else:
 		form = BookForm()
+		#return redirect("onlinebooks:home")
 
 	context = {"form": form}
-
-	return render(request, 'onlinebooks/upload-form.html', context)
+	"""

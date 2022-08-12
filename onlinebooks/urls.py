@@ -12,7 +12,7 @@ urlpatterns = [
 	path('register/', views.UserRegister, name="register"),
 	path('login/', views.UserLogin, name="login"),
 	path('logout/', views.UserLogout, name="logout"),
-	path('upload-form/', views.content_form, name="upload"),
+	path('<int:pk>/', views.content_form, name="upload"),
 	#path('<int:pk>/upload-form/', views.content_form, name="upload"),
 ]
 

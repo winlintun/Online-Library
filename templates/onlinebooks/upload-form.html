@@ -11,19 +11,55 @@
                 <form method="POST">
                     {% csrf_token %}
                     <div class="form-row">
-                        {% for book in form %}
-                        <div class="name">{{ book.name }}</div>
+                        <div class="name">Title:</div>
                         <div class="value">
                             <input class="input--style-6" type="text" name="title">
                         </div>
-                        {% endfor %}
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Author:</div>
+                        <div class="value">
+                            <input class="input--style-6" type="text" name="author">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Description:</div>
+                        <div class="value">
+                            <div class="input-group">
+                                <textarea class="textarea--style-6" name="description" placeholder="Message about the book."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="name">Cateogry:</div>
+                      <div class="value">
+                        <select class="form-select" name="cateogry" multiple aria-label="multiple select example" required>
+                            {% for category in categories %}
+                                <option value="{{ category.id }}">{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Upload Image</div>
+                        <div class="value">
+                            <div class="input-group js-input-file">
+                                <input class="form-control" name="image" type="file" id="formFile" accept="image/*" required>
+                            </div>
+                            <div class="label--desc">Upload your image file. Max file size 10 MB</div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Book Link:</div>
+                        <div class="value">
+                            <input class="input--style-6" type="text" name="book_link">
+                        </div>
                     </div>
                     <div class="text-center">
                         <button class="btn btn--radius-2 text-center btn-primary" type="submit">Send Application</button>
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
