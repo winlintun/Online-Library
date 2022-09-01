@@ -98,24 +98,24 @@
                   </li>
                   {% if user.is_authenticated %}
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Upload</a>
+                    <a class="nav-link" href="{% url 'onlinebooks:upload' user.id%}">Upload</a>
                   </li>
                   {% endif %}
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Static language</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Dynamic language</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Font-End</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Back-End</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Other</a>
-                  </li>
+<!--                  <li class="nav-item">-->
+<!--                    <a class="nav-link" href="#">Static language</a>-->
+<!--                  </li>-->
+<!--                  <li class="nav-item">-->
+<!--                    <a class="nav-link" href="#">Dynamic language</a>-->
+<!--                  </li>-->
+<!--                  <li class="nav-item">-->
+<!--                    <a class="nav-link" href="#">Font-End</a>-->
+<!--                  </li>-->
+<!--                  <li class="nav-item">-->
+<!--                    <a class="nav-link" href="#">Back-End</a>-->
+<!--                  </li>-->
+<!--                  <li class="nav-item">-->
+<!--                    <a class="nav-link" href="#">Other</a>-->
+<!--                  </li>-->
                   <!-- <li class="nav-item">
                     <a class="nav-link disabled">Disabled</a>
                   </li> -->

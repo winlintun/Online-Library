@@ -6,19 +6,15 @@
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{ my_book.image.url }}" alt="{{ my_book.title }}" /></div>
                     <div class="col-md-6">
-                        <div class="small mb-1">{{ my_book.author }}</div>
+                        <div class="small mb-1"><strong>{{ my_book.author }}</strong></div>
                         <h1 class="display-5 fw-bolder">{{ my_book.title }}</h1>
                         <div class="">
                             <span class="">{{ my_book.create_date }}</span>
                         </div>
-                        <div class="fs-5 mb-5">
-                            {% for category in my_cateogry %}
-                                <span class="fw-bold">{{ category }}/</span>
-                            {% endfor %}
-                        </div>
                         <p class="lead">{{ my_book.description }}</p>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                             <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ my_book.book_link }}" target="_blank">Free Download Now</a></div>
+                            <div class="small mb-1"><strong>created:</strong> {{ my_book.upload_user }}</div>
                         </div>
                     </div>
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">

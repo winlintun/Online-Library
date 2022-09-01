@@ -12,8 +12,7 @@ urlpatterns = [
 	path('register/', views.UserRegister, name="register"),
 	path('login/', views.UserLogin, name="login"),
 	path('logout/', views.UserLogout, name="logout"),
-	path('<int:pk>/', views.content_form, name="upload"),
-	#path('<int:pk>/upload-form/', views.content_form, name="upload"),
+	path('upload/<int:pk>/', views.content_form, name="upload"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
-from .models import Book, Category
+from django.http import HttpResponse
+from .models import Book
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from .forms import BookForm
+from django.utils.text import slugify
 
 
 def home(request):
@@ -17,7 +18,6 @@ def home(request):
 def detail(request, pk, slug_text):
 
 	my_book = Book.objects.get(id=pk)
-	my_cateogry = my_book.cateogry.all
 
 	unique_slug = slug_text
 
@@ -25,8 +25,7 @@ def detail(request, pk, slug_text):
 
 	contenxt = {"books": unique_slug,
 				'my_book': my_book,
-				'all_book':all_book,
-				'my_cateogry':my_cateogry}
+				'all_book':all_book}
 
 	return render(request, 'onlinebooks/items.html', contenxt)
 
@@ -71,44 +70,25 @@ def UserLogout(request):
 
 
 def content_form(request, pk):
-	user = User.objects.get(id=pk)
-	categories = Category.objects.all()
-	if request.method == 'POST':
-		title = request.POST['title']
-		author = request.POST['author']
-		description = request.POST['description']
-		cateogry = request.POST['cateogry']
-		book_link = request.POST['book_link']
-		image = request.POST['image']  # 1 item
-
-		my_category = set()
-		for i in cateogry:
-			my_category.add(i)
-		print(my_category)
-		mybook = Book(title=title, author=author, description=description, book_link=book_link, image=image)
-		mybook.save()
-		return redirect("onlinebooks:home")
-
-	context = {'categories': categories}
-
-	return render(request, 'onlinebooks/upload-form.html', context)
-
-""" 
-	if request.method == 'POST':
-		form = BookForm(request.POST)
+	user = User.objects.get(pk=pk)
+	if request.method == "POST":
+		form = BookForm(request.POST, instance=user)
 		if form.is_valid():
-			user_form = form.save(commit=False)
-			title = form.cleaned_data.get('title')
-			author = form.cleaned_data.get('author')
-			cateogry = form.cleaned_data.get('cateogry')
-			book_link = form.cleaned_data.get('book_link')
-			image = form.cleaned_data.get('image')
-			form.save()
+			title = form.cleaned_data['title']
+			author = form.cleaned_data['author']
+			description = form.cleaned_data['description']
+			slug_url = slugify(title)
+			book_link = form.cleaned_data['book_link']
+			image = form.cleaned_data['image']
+			create_date = form.cleaned_data['create_date']
 
+			book = Book.objects.create(title=title, author=author, description=description, slug_url=slug_url, book_link=book_link, image=image, create_date=create_date, upload_user=user)
+			book.save()
 			return redirect("onlinebooks:home")
 	else:
 		form = BookForm()
-		#return redirect("onlinebooks:home")
+	context = {
+		'form': form,
+	}
 
-	context = {"form": form}
-	"""
+	return render(request, 'onlinebooks/upload-form.html', context)

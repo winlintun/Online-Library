@@ -1,50 +1,40 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="page-wrapper bg-dark p-t-100 p-b-50">
+<div class="page-wrapper bg-secondary p-t-100 p-b-50">
     <div class="wrapper wrapper--w900">
         <div class="card card-6">
             <div class="card-heading">
                 <h2 class="title text-primary text-center">Apply for job</h2>
             </div>
             <div class="card-body">
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-row">
                         <div class="name">Title:</div>
                         <div class="value">
-                            <input class="input--style-6" type="text" name="title">
+                            {{ form.title }}
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="name">Author:</div>
                         <div class="value">
-                            <input class="input--style-6" type="text" name="author">
+                            {{ form.author }}
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="name">Description:</div>
                         <div class="value">
                             <div class="input-group">
-                                <textarea class="textarea--style-6" name="description" placeholder="Message about the book."></textarea>
+                               {{ form.description }}
                             </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="name">Cateogry:</div>
-                      <div class="value">
-                        <select class="form-select" name="cateogry" multiple aria-label="multiple select example" required>
-                            {% for category in categories %}
-                                <option value="{{ category.id }}">{{ category.name }}</option>
-                            {% endfor %}
-                        </select>
-                      </div>
                     </div>
                     <div class="form-row">
                         <div class="name">Upload Image</div>
                         <div class="value">
                             <div class="input-group js-input-file">
-                                <input class="form-control" name="image" type="file" id="formFile" accept="image/*" required>
+                                {{ form.image }}
                             </div>
                             <div class="label--desc">Upload your image file. Max file size 10 MB</div>
                         </div>
@@ -52,7 +42,17 @@
                     <div class="form-row">
                         <div class="name">Book Link:</div>
                         <div class="value">
-                            <input class="input--style-6" type="text" name="book_link">
+                            <div class="input-group">
+                                   {{ form.book_link }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Date:</div>
+                        <div class="value">
+                            <div class="input-group">
+                                   {{ form.create_date }}
+                            </div>
                         </div>
                     </div>
                     <div class="text-center">
