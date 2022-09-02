@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5 pt-5 mb-5">
+  <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+      <div class="text-left"><a class="btn btn-outline-info mt-auto" href="{% url 'onlinebooks:home' %}">Back</a></div>
+  </div>
+   <div class="col-md-8 offset-md-2">
+    {% if query %}
+      <h2>
+       Results for <b>{{ request.GET.q }}</b>
+      </h2>
+      {% if results %}
+        {% for book in results %}
+          <h1>{{ book.title }}</h1>
+          <h3>{{ book.author }}</h3>
+          <p>{{ book.description }}</p>
+          <p>{{ book.create_date }}</p>
+          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-left"><a class="btn btn-outline-primary mt-auto" href="{% url 'onlinebooks:book-detail' book.id book.slug_url %}">View</a></div>
+          </div>
+           <hr>
+        {% endfor %}
+      {% else %}
+      <p>No data found!</p>
+      <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+          <div class="text-left"><a class="btn btn-outline-primary mt-auto" href="{% url 'onlinebooks:home' %}">Back</a></div>
+      </div>
+      {% endif %}
+    {% endif %}
+
+   </div>
+</div>
+
+
+{% endblock %}
