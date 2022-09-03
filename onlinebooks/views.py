@@ -82,10 +82,11 @@ def content_form(request, pk):
 			book_link = form.cleaned_data['book_link']
 			image = form.cleaned_data['image']
 			create_date = form.cleaned_data['create_date']
+			pdf_books = form.cleaned_data['pdf_books']
 
 			print(slug_url)
 
-			book = Book.objects.create(title=title, author=author, description=description, slug_url=slug_url, book_link=book_link, image=image, create_date=create_date, upload_user=user)
+			book = Book.objects.create(title=title, author=author, description=description, slug_url=slug_url, book_link=book_link, image=image, create_date=create_date, upload_user=user, pdf_books=pdf_books)
 			book.save()
 			return redirect("onlinebooks:home")
 	else:
@@ -106,3 +107,4 @@ def search(request):
 	return render(request, 'onlinebooks/search.html', {
 		'query': query, "results": results
 		})
+	

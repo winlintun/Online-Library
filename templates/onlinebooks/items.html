@@ -13,7 +13,11 @@
                         </div>
                         <p class="lead">{{ my_book.description }}</p>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ my_book.book_link }}" target="_blank">Free Download Now</a></div>
+                            {% if my_book.book_link is not None %}
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ my_book.book_link }}" target="_blank">Free Download Now</a></div>
+                            {% else %}
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/media/{{ my_book.pdf_books }}" target="_blank">Read Now</a></div>
+                            {% endif %}
                             <div class="small mb-1"><strong>created:</strong> {{ my_book.upload_user }}</div>
                         </div>
                     </div>

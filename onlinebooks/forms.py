@@ -32,7 +32,7 @@ from django.contrib.auth.models import User
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ['title', 'author', 'description', 'book_link', 'image', 'create_date']
+        fields = ['title', 'author', 'description', 'book_link', 'pdf_books', 'image', 'create_date']
 
     def __init__(self, *args, **kwargs):
         super(BookForm, self).__init__(*args, **kwargs)
@@ -44,3 +44,4 @@ class BookForm(forms.ModelForm):
         # add attribute to define acceptable file-type
         self.fields['image'].widget.attrs['accept'] = "image/png, image/gif, image/jpeg"
         self.fields['description'].widget.attrs['class'] = 'textarea--style-6'
+        self.fields['pdf_books'].widget.attrs['accept'] = ".pdf"
