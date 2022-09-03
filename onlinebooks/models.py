@@ -16,3 +16,14 @@ class Book(models.Model):
 
 	def __str__(self):
 		return self.title
+
+
+class Comment(models.Model):
+	book = models.ForeignKey(Book, on_delete=models.CASCADE)
+	body = models.TextField()
+	date_created = models.DateTimeField(default=timezone.now)
+	comment_user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+	def __str__(self):
+		return self.body

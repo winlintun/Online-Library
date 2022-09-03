@@ -14,6 +14,7 @@ urlpatterns = [
 	path('logout/', views.UserLogout, name="logout"),
 	path('upload/<int:pk>/', views.content_form, name="upload"),
 	path("search/", views.search, name="search"),
+	# path('comment/', views.user_comment, name="comment"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

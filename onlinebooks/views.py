@@ -1,10 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import Book
+from .models import Book, Comment
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from .forms import BookForm
+from .forms import BookForm, CommentForm
 from django.utils.text import slugify
 from django.db.models import Q
 
@@ -24,9 +24,23 @@ def detail(request, pk, slug_text):
 
 	all_book = Book.objects.all()[::-5]
 
+	# comment
+	if request.method == "POST":
+		form = CommentForm(request.POST, instance=my_book)
+		if form.is_valid():
+			body = form.cleaned_data['body']
+			date_created = form.cleaned_data['date_created']
+			cp = my_book.comment_set.create(body=body, date_created=date_created, comment_user=request.user)
+			cp.save()
+			print(request.user)
+			# return HttpResponse('Successfully')
+	else:
+		form = CommentForm()
+
 	contenxt = {"books": unique_slug,
 				'my_book': my_book,
-				'all_book':all_book}
+				'all_book':all_book,
+				'form': form}
 
 	return render(request, 'onlinebooks/items.html', contenxt)
 
@@ -108,3 +122,21 @@ def search(request):
 		'query': query, "results": results
 		})
 	
+
+# def user_comment(request, pk):
+
+# 	user = User.objects.get(id=pk)
+# 	if request.method == "POST":
+# 		form = CommentForm(request.POST, instance=user)
+# 		if form.is_valid():
+# 			body = form.cleaned_data['body']
+# 			date_created = form.cleaned_data['date_created']
+# 			cp = Comment.objects.create(body=body, date_created=date_created, comment_user=user)
+# 			cp.save()
+# 			return HttpResponse('Successfully')
+# 	else:
+# 		form = CommentForm()
+# 	context = {
+# 		'form': form
+# 	}
+# 	return render(request, 'onlinebooks/items.html', context)
